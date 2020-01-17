@@ -4,8 +4,7 @@ const LETTERS = {
     }
 }
 
-const VALIDATE =
-{
+const VALIDATE = {
     ValidateEmptyField: fields => {
         let empty = false
         fields.forEach(element => {
@@ -31,7 +30,19 @@ const VALIDATE =
     }
 }
 
+
+const FORMAT = {
+    btoa: data => {
+        return new Buffer(data, "binary").toString("base64");
+    },
+
+    atob: data => {
+        return new Buffer(data, "base64").toString("binary");
+    }
+}
+
 export {
     LETTERS,
-    VALIDATE
+    VALIDATE,
+    FORMAT
 }

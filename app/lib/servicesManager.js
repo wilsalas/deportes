@@ -7,7 +7,7 @@ let response = {
     message: "Ha ocurrido un error inesperado en la aplicación. por favor intente nuevamente"
 };
 
-export default {
+export const ServicesManager = {
     GET: {
 
     },
@@ -19,7 +19,15 @@ export default {
                 const newUser = await userCollection.where("email", "==", user.email).get();
                 if (newUser.docs.length === 0) {
                     response.error = false;
-                    await userCollection.add(user);
+                    const userAuth = await firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
+                    if (user.profile !== "") {
+                        let imgFirebase = await ServicesManager.PUT.UploadImage(user.profile, userAuth.user.uid);
+                        if (!imgFirebase.error) {
+                            user.profile = imgFirebase.message
+                        }
+                    }
+                    delete user.password;
+                    await userCollection.doc(userAuth.user.uid).set(user);
                 } else {
                     response.error = true;
                     response.message = "Este correo electrónico ya está siendo utilizado"
@@ -42,6 +50,7 @@ export default {
                     response.error = false;
                     response.message = await imageRef.getDownloadURL();
                 } catch (error) {
+                    console.log("DATO DE SUBIDA DE ARCHIVO", error);
                     response.error = true;
                 }
             } else {

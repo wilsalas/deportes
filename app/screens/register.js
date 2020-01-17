@@ -13,7 +13,7 @@ import {
 import ActionSheet from 'react-native-custom-actionsheet';
 import { VALIDATE } from '../helpers/helperManager';
 import { ImageManager } from '../helpers/imageManager';
-import ServicesManager from '../lib/servicesManager';
+import { ServicesManager } from '../lib/servicesManager';
 import styles from '../styles/styles';
 import { useGlobal } from '../lib/store';
 // import firebase from '../lib/firebase';
@@ -27,20 +27,23 @@ export default props => {
     const [getGender, setGender] = useState("Masculino");
     const [getProfile, setProfile] = useState(null);
     const actionSheet = useRef(null);
-    // const [state, dispatch] = useGlobal()
+    const [, dispatch] = useGlobal()
 
     // useEffect(() => {
+    //     (async()=>{
+    //         let data = await firebase.auth().createUserWithEmailAndPassword("w@gmail.com", "123456")
+    //     console.log(data);
 
-    //     dispatch({ type: 'MODAL_ACTION', modal: true })
-    //     console.log("state", state.modal);
+    //     })()
 
-    // }, [state.modal])
+    // }, [])
 
 
     useEffect(() => {
         setProfile(require("../../assets/img/profile.png"))
     }, [])
 
+    const funChangeModalLoading = modal => dispatch({ type: 'MODAL_ACTION', modal });
 
     const funActionSheetSelection = async index => {
         let pathFile = "";
@@ -66,14 +69,9 @@ export default props => {
                 email: getEmail,
                 password: getPassword,
                 gender: getGender,
-                profile: ""
+                profile: getProfile && getProfile.uri ? getProfile.uri : ""
             }
-            if (getProfile && getProfile.uri) {
-                let imgFirebase = await ServicesManager.PUT.UploadImage(getProfile.uri, getEmail);
-                if (!imgFirebase.error) {
-                    user.profile = imgFirebase.message
-                }
-            }
+            funChangeModalLoading(true);
             let newUser = await ServicesManager.POST.AddUser(user);
             if (!newUser.error) {
                 Alert.alert(
@@ -87,6 +85,7 @@ export default props => {
             } else {
                 Alert.alert(newUser.message);
             }
+            funChangeModalLoading(false);
         } else {
             Alert.alert(errorMessage);
         }
