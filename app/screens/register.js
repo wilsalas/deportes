@@ -14,9 +14,8 @@ import ActionSheet from 'react-native-custom-actionsheet';
 import { VALIDATE } from '../helpers/helperManager';
 import { ImageManager } from '../helpers/imageManager';
 import { ServicesManager } from '../lib/servicesManager';
-import styles from '../styles/styles';
 import { useGlobal } from '../lib/store';
-// import firebase from '../lib/firebase';
+import styles from '../styles/styles';
 
 export default props => {
 
@@ -27,17 +26,7 @@ export default props => {
     const [getGender, setGender] = useState("Masculino");
     const [getProfile, setProfile] = useState(null);
     const actionSheet = useRef(null);
-    const [, dispatch] = useGlobal()
-
-    // useEffect(() => {
-    //     (async()=>{
-    //         let data = await firebase.auth().createUserWithEmailAndPassword("w@gmail.com", "123456")
-    //     console.log(data);
-
-    //     })()
-
-    // }, [])
-
+    const [, dispatch] = useGlobal();
 
     useEffect(() => {
         setProfile(require("../../assets/img/profile.png"))
@@ -53,7 +42,7 @@ export default props => {
     }
 
     const funRegisterUser = async () => {
-        let errorMessage = ""
+        let errorMessage = "";
         if (VALIDATE.ValidateEmptyField([getName, getLastName, getEmail, getPassword, getGender])) {
             errorMessage = "Complete todos los campos";
         } else if (!VALIDATE.ValidateEmail(getEmail)) {

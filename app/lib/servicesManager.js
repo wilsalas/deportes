@@ -12,6 +12,17 @@ export const ServicesManager = {
 
     },
     POST: {
+        LoginUser: async (email, password) => {
+            try {
+                const userAuth = await firebase.auth().signInWithEmailAndPassword(email, password)
+                response.error = false;
+                response.message = userAuth.user.uid;
+            } catch (error) {
+                response.error = true;
+                response.message = "Correo electrónico o contraseña incorrecta";
+            }
+            return response;
+        },
         AddUser: async user => {
             try {
                 YellowBox.ignoreWarnings(['Setting a timer']);
@@ -19,18 +30,18 @@ export const ServicesManager = {
                 const newUser = await userCollection.where("email", "==", user.email).get();
                 if (newUser.docs.length === 0) {
                     response.error = false;
-                    const userAuth = await firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
+                    const userAuth = await firebase.auth().createUserWithEmailAndPassword(user.email, user.password);
                     if (user.profile !== "") {
                         let imgFirebase = await ServicesManager.PUT.UploadImage(user.profile, userAuth.user.uid);
                         if (!imgFirebase.error) {
-                            user.profile = imgFirebase.message
+                            user.profile = imgFirebase.message;
                         }
                     }
                     delete user.password;
                     await userCollection.doc(userAuth.user.uid).set(user);
                 } else {
                     response.error = true;
-                    response.message = "Este correo electrónico ya está siendo utilizado"
+                    response.message = "Este correo electrónico ya está siendo utilizado";
                 }
             } catch (error) {
                 response.error = true;

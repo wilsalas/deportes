@@ -1,9 +1,4 @@
-import React, {
-    createContext,
-    useContext,
-    useReducer
-} from 'react';
-
+import React, { createContext, useContext, useReducer } from 'react';
 // -----------------------Redux Store Reducer---------------
 // Create to reducer data state and actions
 const Redux = {
@@ -18,11 +13,9 @@ const Redux = {
                 return state;
         }
     },
-    Store: () => {
-        return [state, dispatch] = useReducer(Redux.Reducer, {
-            modal: false
-        });
-    }
+    Store: () => [state, dispatch] = useReducer(Redux.Reducer, {
+        modal: false
+    })
 }
 // -----------------------Context---------------
 // Create to context for render state

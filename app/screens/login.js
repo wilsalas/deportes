@@ -1,23 +1,53 @@
 import React, { useState } from 'react';
 import {
+    Alert,
     Text,
     View,
     Image,
     TextInput,
     Modal,
+    AsyncStorage,
     KeyboardAvoidingView,
     TouchableOpacity
 } from 'react-native';
 import Register from './register';
+import { ServicesManager } from '../lib/servicesManager';
+import { VALIDATE } from '../helpers/helperManager';
+import { useGlobal } from '../lib/store';
 import styles from '../styles/styles';
 
-export default () => {
+export default props => {
 
     const [getEmail, setEmail] = useState("");
     const [getPassword, setPassword] = useState("");
     const [getModal, setModal] = useState(false);
+    const [, dispatch] = useGlobal();
 
-    const changeStatusModal = status => setModal(status);
+    const funChangeStatusModal = status => setModal(status);
+
+    const funChangeModalLoading = modal => dispatch({ type: 'MODAL_ACTION', modal });
+
+    const funLoginUser = async () => {
+        let errorMessage = "";
+        if (VALIDATE.ValidateEmptyField([getEmail, getPassword])) {
+            errorMessage = "Complete todos los campos";
+        } else if (!VALIDATE.ValidateEmail(getEmail)) {
+            errorMessage = "Correo electrónico incorrecto";
+        }
+        if (errorMessage === "") {
+            funChangeModalLoading(true);
+            let userAuth = await ServicesManager.POST.LoginUser(getEmail, getPassword);
+            if (!userAuth.error) {
+                await AsyncStorage.setItem("uid", userAuth.message);
+                props.navigation.navigate("Home");
+            } else {
+                Alert.alert(userAuth.message);
+            }
+            funChangeModalLoading(false);
+        } else {
+            Alert.alert(errorMessage);
+        }
+    }
 
     return (
         <View style={styles.container}>
@@ -42,11 +72,13 @@ export default () => {
                         onChangeText={e => setPassword(e)}
                         value={getPassword} />
                 </View>
-                <TouchableOpacity style={[styles.buttonLogin, styles.boxShadow]}>
+                <TouchableOpacity
+                    onPress={() => funLoginUser()}
+                    style={[styles.buttonLogin, styles.boxShadow]}>
                     <Text style={styles.buttonText}>Iniciar Sesión</Text>
                 </TouchableOpacity>
             </KeyboardAvoidingView>
-            <TouchableOpacity onPress={() => changeStatusModal(true)}>
+            <TouchableOpacity onPress={() => funChangeStatusModal(true)}>
                 <Text style={styles.buttonText}>Registrarse</Text>
             </TouchableOpacity>
             {/* Page user register */}
@@ -54,8 +86,8 @@ export default () => {
                 animationType="slide"
                 transparent={false}
                 visible={getModal}
-                onRequestClose={() => changeStatusModal(false)}>
-                <Register closeModal={() => changeStatusModal(false)} />
+                onRequestClose={() => funChangeStatusModal(false)}>
+                <Register closeModal={() => funChangeStatusModal(false)} />
             </Modal>
         </View>
     )
