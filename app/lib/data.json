@@ -1,0 +1,78 @@
+{
+    "football": [
+        {
+            "country": "Colombia",
+            "icon": "🇨🇴",
+            "teams": [
+                "CD Junior FC",
+                "Club Atlético Nacional S.A",
+                "Fortaleza FC",
+                "Deportes Tolima",
+                "América de Cali",
+                "Unión Magdalena",
+                "La Equidad",
+                "Águilas Doradas",
+                "Atlético Huila",
+                "Independiente Santa Fe",
+                "Millonarios FC",
+                "Once Caldas"
+            ]
+        },
+        {
+            "country": "Estados Unidos",
+            "icon": "🇺🇸",
+            "teams": [
+                "Columbus Crew SC",
+                "AC St. Louis",
+                "Atlanta Silverbacks FC",
+                "Boston Breakers",
+                "Charlotte Eagles",
+                "Chicago Fire FC",
+                "Cleveland City Stars",
+                "Austin Bold FC",
+                "Charlotte Independence",
+                "Colorado Rapids",
+                "California Victory",
+                "CD Chivas USA"
+            ]
+        }
+    ],
+    "basketball": [
+        {
+            "country": "Colombia",
+            "icon": "🇨🇴",
+            "teams": [
+                "Titanes de Barranquilla",
+                "Warriors de San Andrés",
+                "Cimarrones del Chocó",
+                "Piratas de Bogotá",
+                "Academia de la Montaña",
+                "Patriotas de Boyacá",
+                "Fastbreak del Valle",
+                "Sabios de Manizales",
+                "Bambuqueros",
+                "Cóndores",
+                "Caimanes",
+                "Halcones de Cúcuta"
+            ]
+        },
+        {
+            "country": "Estados Unidos",
+            "icon": "🇺🇸",
+            "teams": [
+                "Anderson Packers‎",
+                "Baltimore Bullets",
+                "Chicago Stags‎",
+                "Cleveland Rebels‎",
+                "Denver Nuggets",
+                "Detroit Falcons‎",
+                "Indianapolis Jets‎",
+                "St. Louis Bombers‎",
+                "Indianapolis Olympians‎ ",
+                "Waterloo Hawks‎",
+                "Providence Steamrollers‎",
+                "Washington Capitols‎"
+            ]
+        }
+    ]
+}

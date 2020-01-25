@@ -1,0 +1,35 @@
+import React from 'react';
+import styles from "../styles/styles";
+import { AsyncStorage, Text, TouchableOpacity } from 'react-native';
+import {
+    Button, Body, Header, Icon, Left, Right, Title
+} from 'native-base';
+
+export default props => {
+
+    const funLogout = async () => {
+        await AsyncStorage.removeItem("uid");
+        props.navigation.navigate("Login");
+    }
+
+    return (
+        <Header style={styles.containerHeader}>
+            <Left>
+            <Text style={{fontSize:40}}>{'🇨🇴'}</Text>
+                {props.goBack &&
+                    <Button transparent onPress={() => props.navigation.goBack()}>
+                        <Icon name='arrow-back' />
+                    </Button>
+                }
+            </Left>
+            <Body>
+                <Title style={styles.titleHeader}>{props.title}</Title>
+            </Body>
+            <Right >
+                <TouchableOpacity onPress={() => funLogout()}>
+                    <Text style={styles.textLogout}>Cerrar sesión</Text>
+                </TouchableOpacity>
+            </Right>
+        </Header>
+    )
+}

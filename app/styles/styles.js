@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import { COLORS, FONTS } from '../resources/constants';
 
 export default StyleSheet.create({
@@ -91,6 +91,44 @@ export default StyleSheet.create({
     },
     label: {
         fontSize: 16,
+        fontFamily: FONTS.REGULAR
+    },
+    labelBold: {
+        fontSize: 16,
+        fontFamily: FONTS.BOLD
+    },
+    footerTab: {
+        backgroundColor: COLORS.BLUE,
+    },
+    iconWhite: {
+        color: COLORS.WHITE
+    },
+    containerBase: {
+        backgroundColor: COLORS.BLUE,
+        paddingTop: Platform.OS === 'android' ? 25 : 0
+    },
+    contentBase: {
+        backgroundColor: COLORS.WHITE
+    },
+    contentContainerBase: {
+        marginTop: '20%'
+    },
+    viewCard: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-around'
+    },
+    touchableCard: {
+        width: '40%',
+        height: 150,
+        borderWidth: 3,
+        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    textLogout: {
+        fontSize: 16,
+        color: COLORS.WHITE,
         fontFamily: FONTS.REGULAR
     }
 });

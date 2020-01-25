@@ -7,12 +7,24 @@ import Loading from '../components/loading';
 // Screens
 import Login from '../screens/login';
 import Home from '../screens/home';
+import Bet from '../screens/bet';
+import Football from '../screens/football';
+import Basketball from '../screens/basketball';
+import Profile from '../screens/profile';
 /* Definir los screens generales del app */
 const AppNavigator = createStackNavigator(
     {
-        /* Drawer: { screen: Drawer }, */
         Login: { screen: Login },
-        Home: { screen: Home }
+        Home: {
+            screen: Home,
+            navigationOptions: {
+                gestureEnabled: false
+            }
+        },
+        Cash: { screen: Bet },
+        Football: { screen: Football },
+        Basketball: { screen: Basketball },
+        Person: { screen: Profile }
     }, {
     initialRouteName: 'Login',
     headerMode: 'none'
