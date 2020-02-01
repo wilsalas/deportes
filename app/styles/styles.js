@@ -130,5 +130,40 @@ export default StyleSheet.create({
         fontSize: 16,
         color: COLORS.WHITE,
         fontFamily: FONTS.REGULAR
+    },
+    viewAccordian: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        height: 56,
+        paddingHorizontal: 15
+    },
+    accordianTitle: {
+        fontSize: 14,
+        fontFamily: FONTS.BOLD,
+        color: COLORS.BLACK,
+    },
+    accordianChild1: {
+        width: '35%'
+    },
+    accordianChild2: {
+        width: '30%',
+        flexDirection: 'row',
+        justifyContent: 'center'
+    },
+    accordianChild3: {
+        width: '35%'
+    },
+    accordianChild4: {
+        padding: 16,
+        flexDirection: 'column'
+    },
+    accordianInput: {
+        width:'48%',
+        backgroundColor: COLORS.WHITE,
+        borderRadius: 5,
+        height: 55,
+        marginVertical: 10,
+        justifyContent: "center",
+        padding: 20
     }
 });

@@ -26,7 +26,7 @@ const AppNavigator = createStackNavigator(
         Basketball: { screen: Basketball },
         Person: { screen: Profile }
     }, {
-    initialRouteName: 'Login',
+    initialRouteName: 'Cash',
     headerMode: 'none'
 }
 )

@@ -15,7 +15,6 @@ export default props => {
     return (
         <Header style={styles.containerHeader}>
             <Left>
-            <Text style={{fontSize:40}}>{'🇨🇴'}</Text>
                 {props.goBack &&
                     <Button transparent onPress={() => props.navigation.goBack()}>
                         <Icon name='arrow-back' />

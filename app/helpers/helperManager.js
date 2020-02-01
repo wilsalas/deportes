@@ -32,12 +32,18 @@ const VALIDATE = {
 
 
 const FORMAT = {
-    btoa: data => {
-        return new Buffer(data, "binary").toString("base64");
+    NumberRandom: array => {
+        let index = Math.floor(Math.random() * array.length);
+        let number = array[index];
+        array.splice(index, 1);
+        return number;
     },
-
-    atob: data => {
-        return new Buffer(data, "base64").toString("binary");
+    RandomArray: array => {
+        let newArray = []
+        array.forEach(() => {
+            newArray.push([FORMAT.NumberRandom(array), FORMAT.NumberRandom(array)]);
+        });
+        return newArray;
     }
 }
 

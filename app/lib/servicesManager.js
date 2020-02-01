@@ -1,6 +1,8 @@
 import { Platform, YellowBox } from 'react-native';
 import { VALIDATE } from '../helpers/helperManager';
 import firebase from './firebase';
+import dataJson from './data.json';
+
 
 let response = {
     error: false,
@@ -9,7 +11,14 @@ let response = {
 
 export const ServicesManager = {
     GET: {
-
+        SportData: (type = "football") => {
+            try {
+                response.message = type === "football" ? dataJson.football : dataJson.basketball;
+            } catch (error) {
+                response.error = true;
+            }
+            return response;
+        }
     },
     POST: {
         LoginUser: async (email, password) => {
@@ -61,7 +70,6 @@ export const ServicesManager = {
                     response.error = false;
                     response.message = await imageRef.getDownloadURL();
                 } catch (error) {
-                    console.log("DATO DE SUBIDA DE ARCHIVO", error);
                     response.error = true;
                 }
             } else {
