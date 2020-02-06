@@ -9,12 +9,18 @@ const Redux = {
                     ...state,
                     modal: action.modal
                 }
+            case 'USER_ACTION':
+                return {
+                    ...state,
+                    uid: action.uid
+                }
             default:
                 return state;
         }
     },
     Store: () => [state, dispatch] = useReducer(Redux.Reducer, {
-        modal: false
+        modal: false,
+        uid: ""
     })
 }
 // -----------------------Context---------------

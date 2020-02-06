@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from "../styles/styles";
 import { AsyncStorage, Text, TouchableOpacity } from 'react-native';
 import {
     Button, Body, Header, Icon, Left, Right, Title
 } from 'native-base';
+import { useGlobal } from '../lib/store';
 
 export default props => {
+    const [, dispatch] = useGlobal();
+
+    useEffect(() => {
+        (async () => {
+            dispatch({ type: "USER_ACTION", uid: await AsyncStorage.getItem("uid") })
+        })()
+    }, []);
 
     const funLogout = async () => {
         await AsyncStorage.removeItem("uid");

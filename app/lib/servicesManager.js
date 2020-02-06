@@ -3,7 +3,6 @@ import { VALIDATE } from '../helpers/helperManager';
 import firebase from './firebase';
 import dataJson from './data.json';
 
-
 let response = {
     error: false,
     message: "Ha ocurrido un error inesperado en la aplicación. por favor intente nuevamente"
@@ -13,6 +12,7 @@ export const ServicesManager = {
     GET: {
         SportData: (type = "football") => {
             try {
+                YellowBox.ignoreWarnings(['VirtualizedLists should never be nested']);
                 response.message = type === "football" ? dataJson.football : dataJson.basketball;
             } catch (error) {
                 response.error = true;
@@ -23,7 +23,7 @@ export const ServicesManager = {
     POST: {
         LoginUser: async (email, password) => {
             try {
-                const userAuth = await firebase.auth().signInWithEmailAndPassword(email, password)
+                const userAuth = await firebase.auth().signInWithEmailAndPassword(email, password);
                 response.error = false;
                 response.message = userAuth.user.uid;
             } catch (error) {
@@ -52,6 +52,16 @@ export const ServicesManager = {
                     response.error = true;
                     response.message = "Este correo electrónico ya está siendo utilizado";
                 }
+            } catch (error) {
+                response.error = true;
+            }
+            return response;
+        },
+        AddBet: async (nameCollection = "football", nameDoc) => {
+            try {
+                YellowBox.ignoreWarnings(['Setting a timer']);
+                const sportCollection = firebase.firestore().collection(nameCollection);
+                await sportCollection.add(nameDoc);
             } catch (error) {
                 response.error = true;
             }
